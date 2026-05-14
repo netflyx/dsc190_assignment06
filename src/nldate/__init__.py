@@ -127,12 +127,13 @@ def _parse_before_after_from(text: str, ref_dt: datetime) -> date | None:
     if offset_delta is None:
         return None
 
-    if relation == "before":
-        total_delta = anchor_shift - offset_delta
-    else:
-        total_delta = anchor_shift + offset_delta
+    anchor_with_shift = anchor_dt + anchor_shift
 
-    result = anchor_dt + total_delta
+    if relation == "before":
+        result = anchor_with_shift - offset_delta
+    else:
+        result = anchor_with_shift + offset_delta
+
     return result.date()
 
 
